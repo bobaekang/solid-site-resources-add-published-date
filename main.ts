@@ -10,6 +10,7 @@ for (const type of types) {
     console.log(
       `NOTE: Input source file for resource type ${type} is not available at ${inputPath}. Skipping this resource type.`,
     );
+    continue;
   }
   const text = Deno.readTextFileSync(inputPath);
 
