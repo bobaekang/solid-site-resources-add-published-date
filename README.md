@@ -9,7 +9,7 @@ This repo contains simple [Deno](https://deno.land/#installation) scripts to app
    - `Articles.data.ts`
    - `Podcasts.data.ts`
    - `Videos.data.ts`
-3. Run `deno run --allow-net --allow-read --allow-write mod.ts`
+3. Run `deno run --allow-net --allow-read --allow-write main.ts`
    - Updated source files will be created in `output/`
 
 ## Limitations
