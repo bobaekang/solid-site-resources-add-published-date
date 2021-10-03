@@ -1,4 +1,4 @@
-import { existsSync } from 'https://deno.land/std/fs/exists.ts';
+import { existsSync } from 'https://deno.land/std@0.109.0/fs/exists.ts';
 import { extractLinks, fetchPublishedAt, appendPublishedAts } from './utils.ts';
 
 const types = ['Articles', 'Podcasts', 'Videos'];
