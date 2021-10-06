@@ -9,8 +9,24 @@ export function extractLinks(text: string) {
   return links;
 }
 
+const ISO8601Regex = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d{1,3})?(Z|(\+|-)\d{2}:\d{2}))?$/;
 function getDateValue(maybeDate: any) {
-  const maybeDateValue = new Date(maybeDate).valueOf();
+  let maybeDateValue = NaN;
+
+  if (typeof maybeDate === 'number') {
+    // assume UTC if number
+    maybeDateValue = new Date(maybeDate).valueOf();
+  } else if (typeof maybeDate === 'string') {
+    if (ISO8601Regex.test(maybeDate)) {
+      // date string in ISO 8601 format uses UTC: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#differences_in_assumed_time_zone
+      maybeDateValue = new Date(maybeDate).valueOf();
+    } else {
+      // non-standard date string uses local timezone
+      const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+      maybeDateValue = new Date(maybeDate).valueOf() + timezoneOffset;
+    }
+  }
+
   return isNaN(maybeDateValue) ? undefined : maybeDateValue;
 }
 
